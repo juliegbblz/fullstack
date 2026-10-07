@@ -1,1 +1,15 @@
-# Pas de base de données pour l'instant (stockage en mémoire)
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/film-db
+    username: postgres
+    password: 16062004
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    open-in-view: false
+
+  sql:
+    init:
+      mode: always

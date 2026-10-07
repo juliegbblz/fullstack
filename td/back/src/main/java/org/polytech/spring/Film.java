@@ -2,13 +2,48 @@ package org.polytech.spring;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity 
+@Table(name = "film")
 public class Film {
+
+    @Id
+    @GeneratedValue (strategy=GenerationType.IDENTITY)
     Long id;
+
+    @Column (nullable = false,length = 200)
     String titre;
+
+    @Column (nullable = false)
     String realisateur;
+
+    @Column(name= "date_sortie",nullable = false)
     LocalDate dateSortie;
+
+    @Enumerated (EnumType.STRING)
     Genre genre;
+
+    @ManyToMany
+    @JoinTable(
+        name = "film_acteur",
+        joinColumns = @JoinColumn(name = "id_film"),
+        inverseJoinColumns = @JoinColumn(name = "id_acteur")
+    )
+    private Set<Acteur> acteurs = new HashSet<>();
 
     public Film() {}
 
@@ -59,4 +94,12 @@ public class Film {
     public void setGenre(Genre genre){
         this.genre = genre;
     }    
+
+    public Set<Acteur> getActeurs() {
+        return acteurs;
+    }
+
+    public void setActeurs(Set<Acteur> acteurs) {
+        this.acteurs = acteurs;
+    }
 }

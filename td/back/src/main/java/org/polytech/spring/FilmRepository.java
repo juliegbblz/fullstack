@@ -1,62 +1,33 @@
 package org.polytech.spring;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.*;
 
 @Repository 
-public class FilmRepository {
-    List<Film> films = new ArrayList<>(List.of(
+public interface FilmRepository extends JpaRepository<Film,Long>{
+
+    /* List<Film> films = new ArrayList<>(List.of(
         new Film((long) 1, "Inception", "Christopher Nolan", LocalDate.of(2010, 7, 21), Genre.ACTION),
         new Film((long) 2, "Interstellar", "Christopher Nolan", LocalDate.of(2014, 11, 5), Genre.ACTION),
         new Film((long) 3, "Parasite", "Bong Joon-ho", LocalDate.of(2019, 5, 30), Genre.DRAME)
-    ));
+    )); */
 
-public List<Film> getAllFilm(){
-    return films;
+    List<Film> findByTitre(String titre);    
 
-}
+    List<Film> findByRealisateur(String realisateur);
 
-public Film filmParId(long id){
-    Film film = null;
-    for (int i = 0; i < films.size(); i++) {
-        if(films.get(i).getId()==id){
-            film = films.get(i);
-        }
-    }
-    return film;
-}
+    List<Film> findByDateSortie(LocalDate date_sortie);
 
-public void ajouteFilm(Film film){
-    long dernierId;
-    if (films.isEmpty()) {
-        dernierId = 0;
-    } else {
-        dernierId = films.get(films.size() - 1).getId();
-    }
-    film.setId(dernierId + 1);
-    films.add(film);
-}
+    List<Film> findByGenre(Genre genre);
 
-public void majFilm(long id, Film nouveauFilm){
-    for (Film film : films) {
-        if (film.getId() == id) {
-            film.setTitre(nouveauFilm.getTitre());
-            film.setRealisateur(nouveauFilm.getRealisateur());
-            film.setDateSortie(nouveauFilm.getDateSortie());
-            film.setGenre(nouveauFilm.getGenre());
-            return;
-        }
-    }
-}
+    List<Film> findByActeursId(Long acteurId);
 
-public void suppFilm(long id){
-    for (int i = 0; i < films.size(); i++) {
-        if(films.get(i).getId()==id){
-            films.remove(i);
-        }
-    }
-}
+    @Query("select f from Film f join f.acteurs a where a.id = :acteurId")
+    List<Film> findFilmsByActeurId(@Param("acteurId") Long acteurId);
 
 }

@@ -1,6 +1,5 @@
 package org.polytech.spring;
 
-import java.net.URI;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -8,11 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 public class FilmController {
@@ -23,33 +18,29 @@ public class FilmController {
         service = s;
     }
 
-    @GetMapping("/films")
-    public List<Film> getAllFilm(@RequestParam(required = false) String titre) {
-        return service.getAllFilm();
-    }
-
     @GetMapping("/films/{id}")
-    public Film filmParId(@PathVariable long id) {
-        return service.filmParId(id);
+    public List<FilmDto> findById(@PathVariable long id) {
+        return service.findById(id);
     }
 
-    @PostMapping("/films")
-    public ResponseEntity<Film> ajouteFilm(@RequestBody Film film) {
-        service.ajouteFilm(film);
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest().path("/{id}")
-                .buildAndExpand(film.getId()).toUri();
-        return ResponseEntity.created(location).body(film);
+    @GetMapping("/films/{id}/acteurs")
+    public List<Acteur> findActeursById(@PathVariable long id) {
+        return service.findActeursById(id);
     }
 
-    @PutMapping("/films/{id}")
-    public Film majFilm(@PathVariable long id, @RequestBody Film nouveauFilm) {
-        return service.majFilm(id, nouveauFilm);
+    @PostMapping("/films/{id}/acteurs/{acteurId}")
+    public ResponseEntity<Void> addActeur(
+            @PathVariable long id,
+            @PathVariable long acteurId) {
+        //service.addActeur(id, acteurId);
+        return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/films/{id}")
-    public ResponseEntity<Void> suppFilm(@PathVariable long id) {
-        service.suppFilm(id);
+    @DeleteMapping("/films/{id}/acteurs/{acteurId}")
+    public ResponseEntity<Void> removeActeur(
+            @PathVariable long id,
+            @PathVariable long acteurId) {
+        //service.removeActeur(id, acteurId);
         return ResponseEntity.noContent().build();
     }
 }
