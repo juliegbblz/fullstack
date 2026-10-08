@@ -32,6 +32,11 @@ public class ActeurController {
         return service.findById(id);
     }
 
+    @GetMapping ("/acteurs/{id}/films")
+    public List<FilmDto> findFilmsByActeurId(@PathVariable("id") long id) {
+        return service.findFilmsByActeurId(id);
+    }
+
     @PostMapping("/acteurs") //creation
     public ResponseEntity<ActeurDto> addActeur(@RequestBody ActeurCreationDto body) {
         ActeurDto acteurDto = service.addActeur(body);

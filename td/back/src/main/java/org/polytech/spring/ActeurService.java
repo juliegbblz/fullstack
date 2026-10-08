@@ -49,4 +49,11 @@ public class ActeurService {
         }
         repository.delete(acteur);
     }
+
+    @Transactional
+    public List<FilmDto> findFilmsByActeurId(long acteurId) {
+        Acteur acteur = repository.findById(acteurId);
+        if (acteur == null) throw new ActeurNotFoundException();
+        return acteur.getFilms().stream().map(FilmMapper::toDto).toList();
+    }
 }

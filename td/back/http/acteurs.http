@@ -6,6 +6,10 @@ Accept: application/json
 GET http://localhost:8080/acteurs/1
 Accept: application/json
 
+### Film d'un acteur identifié par son identifiant
+GET http://localhost:8080/acteurs/1/films
+Accept: application/json
+
 ### Création — réponse attendue : 201 Created avec en-tête Location
 POST http://localhost:8080/acteurs
 Content-Type: application/json
