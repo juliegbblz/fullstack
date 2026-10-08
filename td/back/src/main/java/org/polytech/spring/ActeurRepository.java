@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ActeurRepository extends JpaRepository<Acteur, Long> {
 
+
     List<Acteur> findByFilmsId(Long filmId);
 
     @Query("select a from Acteur a join a.films f where f.id = :filmId")
