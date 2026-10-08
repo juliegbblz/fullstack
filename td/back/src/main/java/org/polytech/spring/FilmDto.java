@@ -6,6 +6,6 @@ public record FilmDto(
     Long id,
     String titre,
     String realisateur,
-    LocalDate date_sortie,
+    LocalDate dateSortie,
     Genre genre
 ) {}

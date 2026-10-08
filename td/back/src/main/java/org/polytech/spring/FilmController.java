@@ -38,12 +38,13 @@ public class FilmController {
         return ResponseEntity.created(uri).body(film);
     }
 
-    /* @PutMapping("/films/{id}")
-    public Film majFilm(@PathVariable long id, @RequestBody Film nouveauFilm) {
-        return service.majFilm(id, nouveauFilm);
+    @PutMapping("/films/{id}")
+    public FilmDto updateFilm(@PathVariable ("id") long id, @RequestBody FilmDto body) {
+        service.updateFilm(id, body);
+        return service.findById(id);
     }
 
-    @DeleteMapping("/films/{id}")
+    /*  @DeleteMapping("/films/{id}")
     public ResponseEntity<Void> suppFilm(@PathVariable long id) {
         service.suppFilm(id);
         return ResponseEntity.noContent().build();

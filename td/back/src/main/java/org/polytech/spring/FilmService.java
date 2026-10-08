@@ -40,12 +40,18 @@ public class FilmService {
         return FilmMapper.toDto(film);
     }
 
-    /* public Film majFilm(long id, Film nouveauFilm){
-        repository.majFilm(id, nouveauFilm);
-        return filmParId(id);
+    public FilmDto updateFilm(long id, FilmDto body){
+        Film film = repository.findById(id);
+        if (film == null) throw new FilmNotFoundException();
+        film.setTitre(body.titre());
+        film.setDateSortie(body.dateSortie());
+        film.setRealisateur(body.realisateur());
+        film.setGenre(body.genre());
+        repository.save(film);
+        return FilmMapper.toDto(film);
     }
 
-    public void suppFilm(long id){
+    /* public void suppFilm(long id){
         repository.suppFilm(id);
     }
  */
