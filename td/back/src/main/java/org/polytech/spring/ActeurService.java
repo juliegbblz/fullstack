@@ -1,6 +1,7 @@
 package org.polytech.spring;
 import java.util.List;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ActeurService {
@@ -39,9 +40,13 @@ public class ActeurService {
         return ActeurMapper.toDto(acteur);
     }
 
+    @Transactional 
     public void removeActeur(long id) {
         Acteur acteur = repository.findById(id);
         if (acteur == null) throw new ActeurNotFoundException();
+        for (Film film : acteur.getFilms()) {
+            film.getActeurs().remove(acteur);
+        }
         repository.delete(acteur);
     }
 }
