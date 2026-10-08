@@ -15,8 +15,10 @@ public class ActeurService {
         return repository.findAll().stream().map(ActeurMapper::toDto).toList();
     }
 
-    public List<ActeurDto> findById(long id){
-        return repository.findById(id).stream().map(ActeurMapper::toDto).toList();
+    public ActeurDto findById(long id){
+        Acteur acteur = repository.findById(id);
+        if (acteur == null) throw new ActeurNotFoundException();
+        return ActeurMapper.toDto(acteur);
     }
     
 }

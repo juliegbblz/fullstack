@@ -24,7 +24,7 @@ public class ActeurController {
     }
 
     @GetMapping("/acteurs/{id}")
-    public List<ActeurDto> findActeursById(@PathVariable("id") long id) {
+    public ActeurDto findActeursById(@PathVariable("id") long id) {
         return service.findById(id);
     }
 

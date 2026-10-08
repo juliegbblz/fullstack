@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ActeurRepository extends JpaRepository<Acteur, Long> {
 
+    Acteur findById(long id);
 
     List<Acteur> findByFilmsId(Long filmId);
 

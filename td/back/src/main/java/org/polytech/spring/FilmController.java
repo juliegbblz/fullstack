@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.transaction.Transactional;
+
 @RestController
 public class FilmController {
 
@@ -19,7 +21,7 @@ public class FilmController {
     }
 
     @GetMapping("/films/{id}")
-    public List<FilmDto> findById(@PathVariable("id") long id) {
+    public FilmDto findById(@PathVariable("id") long id) {
         return service.findById(id);
     }
 
@@ -27,12 +29,12 @@ public class FilmController {
     public List<ActeurDto> findActeursByFilmId(@PathVariable("id") long id) {
         return service.findActeursByFilmId(id);
     }
-
+    @Transactional
     @PostMapping("/films/{id}/acteurs/{acteurId}")
-    public ResponseEntity<Void> addActeur(
+    public ResponseEntity<Void> addActeurInFilm(
             @PathVariable("id") long id,
             @PathVariable("acteurId") long acteurId) {
-        //service.addActeur(id, acteurId);
+        service.addActeurInFilm(id, acteurId);
         return ResponseEntity.noContent().build();
     }
 
