@@ -5,6 +5,6 @@ import java.time.LocalDate;
 public record FilmCreationDto(
     String titre,
     String realisateur,
-    LocalDate date_sortie,
+    LocalDate dateSortie,
     Genre genre
 ) {}

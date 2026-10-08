@@ -26,15 +26,21 @@ public class FilmService {
 
     }
 
-    /* public void ajouteFilm(Film film){
-        if(film.getTitre()==null || film.getDateSortie()==null || film.getRealisateur()==null || film.getGenre()==null)
+    public FilmDto addFilm(FilmCreationDto body){
+        Film film = new Film();
+        if(body.titre()==null || body.dateSortie()==null || body.realisateur()==null || body.genre()==null)
         {
             throw new FilmCreationException();
         }
-        repository.ajouteFilm(film);
+        film.setTitre(body.titre());
+        film.setDateSortie(body.dateSortie());
+        film.setRealisateur(body.realisateur());
+        film.setGenre(body.genre());
+        repository.save(film);
+        return FilmMapper.toDto(film);
     }
 
-    public Film majFilm(long id, Film nouveauFilm){
+    /* public Film majFilm(long id, Film nouveauFilm){
         repository.majFilm(id, nouveauFilm);
         return filmParId(id);
     }

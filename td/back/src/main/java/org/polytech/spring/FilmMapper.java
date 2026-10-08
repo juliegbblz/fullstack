@@ -15,7 +15,7 @@ public final class FilmMapper {
         Film f = new Film();
         f.setTitre(d.titre());
         f.setRealisateur(d.realisateur());
-        f.setDateSortie(d.date_sortie());
+        f.setDateSortie(d.dateSortie());
         f.setGenre(d.genre());
         return f;
 

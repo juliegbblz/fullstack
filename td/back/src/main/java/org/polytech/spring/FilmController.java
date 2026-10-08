@@ -29,16 +29,16 @@ public class FilmController {
         return service.findAll();
     }
     
-    /* @PostMapping("/films")
-    public ResponseEntity<Film> ajouteFilm(@RequestBody Film film) {
-        service.ajouteFilm(film);
-        URI location = ServletUriComponentsBuilder
+    @PostMapping("/films")
+    public ResponseEntity<FilmDto> addFilm(@RequestBody FilmCreationDto body) {
+        FilmDto film = service.addFilm(body);
+        URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{id}")
-                .buildAndExpand(film.getId()).toUri();
-        return ResponseEntity.created(location).body(film);
+                .buildAndExpand(film.id()).toUri();
+        return ResponseEntity.created(uri).body(film);
     }
 
-    @PutMapping("/films/{id}")
+    /* @PutMapping("/films/{id}")
     public Film majFilm(@PathVariable long id, @RequestBody Film nouveauFilm) {
         return service.majFilm(id, nouveauFilm);
     }

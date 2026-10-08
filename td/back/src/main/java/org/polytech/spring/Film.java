@@ -31,7 +31,7 @@ public class Film {
     @Column (nullable = false)
     String realisateur;
 
-    @Column(name= "date_sortie",nullable = false)
+    @Column(name= "dateSortie",nullable = false)
     LocalDate dateSortie;
 
     @Enumerated (EnumType.STRING)
