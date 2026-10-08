@@ -44,11 +44,11 @@ public class FilmController {
         return service.findById(id);
     }
 
-    /*  @DeleteMapping("/films/{id}")
-    public ResponseEntity<Void> suppFilm(@PathVariable long id) {
-        service.suppFilm(id);
+    @DeleteMapping("/films/{id}")
+    public ResponseEntity<Void> removeFilm(@PathVariable("id") long id) {
+        service.removeFilm(id);
         return ResponseEntity.noContent().build();
-    } */
+    }
 
     @GetMapping("/films/{id}")
     public FilmDto findById(@PathVariable("id") long id) {

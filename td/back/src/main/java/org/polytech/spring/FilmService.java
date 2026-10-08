@@ -51,10 +51,12 @@ public class FilmService {
         return FilmMapper.toDto(film);
     }
 
-    /* public void suppFilm(long id){
-        repository.suppFilm(id);
+    public void removeFilm(long id){
+        Film film = repository.findById(id);
+        if (film == null) throw new FilmNotFoundException();
+        repository.delete(film);
     }
- */
+
     public List<FilmDto> findAll(){
         return repository.findAll().stream().map(FilmMapper::toDto).toList();
     }
