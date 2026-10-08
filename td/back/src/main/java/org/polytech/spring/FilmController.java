@@ -74,7 +74,7 @@ public class FilmController {
     public ResponseEntity<Void> removeActeur(
             @PathVariable("id") long id,
             @PathVariable("acteurId") long acteurId) {
-        //service.removeActeur(id, acteurId);
+        service.removeActeur(id, acteurId);
         return ResponseEntity.noContent().build();
     }
 }

@@ -83,31 +83,13 @@ public class FilmService {
         repository.save(film);
     }
 
-    /* public  List<Film> getAllFilm(){
-        return repository.getAllFilm() ;
+    @Transactional
+    public void removeActeur(long idFilm, long idActeur) {
+        Film film = repository.findById(idFilm);
+        Acteur acteur = acteurRepository.findById(idActeur);
+        if (film == null || acteur == null) throw new FilmNotFoundException();
+        film.getActeurs().remove(acteur);
+        repository.save(film);  
     }
-
-    public Film filmParId(long id){
-        Film film = repository.filmParId(id);
-        if (film == null) throw new FilmNotFoundException();
-        return film;
-    }
-
-    public void ajouteFilm(Film film){
-        if(film.getTitre()==null || film.getDateSortie()==null || film.getRealisateur()==null || film.getGenre()==null)
-        {
-            throw new FilmCreationException();
-        }
-        repository.ajouteFilm(film);
-    }
-
-    public Film majFilm(long id, Film nouveauFilm){
-        repository.majFilm(id, nouveauFilm);
-        return filmParId(id);
-    }
-
-    public void suppFilm(long id){
-        repository.suppFilm(id);
-    } */
     
 }
