@@ -24,8 +24,8 @@ public class FilmController {
     }
 
     @GetMapping("/films/{id}/acteurs")
-    public List<Acteur> findActeursById(@PathVariable("id") long id) {
-        return service.findActeursById(id);
+    public List<ActeurDto> findActeursByFilmId(@PathVariable("id") long id) {
+        return service.findActeursByFilmId(id);
     }
 
     @PostMapping("/films/{id}/acteurs/{acteurId}")

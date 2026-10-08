@@ -7,25 +7,20 @@ import org.springframework.util.ObjectUtils;
 public class FilmService {
 
     private final FilmRepository repository;
-    private final ActeurRepository acteurRepository;
 
-    public FilmService(FilmRepository r,ActeurRepository a) {
+    public FilmService(FilmRepository r) {
         this.repository = r;
-        this.acteurRepository = a;
     }
 
-    public List<FilmDto> findByTitre(String titre){
-        String searchTitre = ObjectUtils.isEmpty(titre) ? "%" : titre;
-        return repository.findByTitre(searchTitre).stream().map(FilmMapper::toDto).toList();
-    }
 
     public List<FilmDto> findById(long id){
         long searchId = ObjectUtils.isEmpty(id) ? 0 : id;
         return repository.findById(searchId).stream().map(FilmMapper::toDto).toList();
     }
 
-    public List<Acteur> findActeursById(long id){
-        return acteurRepository.findActeursByFilmId(id);
+    public List<ActeurDto> findActeursByFilmId(long id){
+        long searchId = ObjectUtils.isEmpty(id) ? 0 : id;
+        return repository.findActeursByFilmId(searchId).stream().map(ActeurMapper::toDto).toList();
     }
 
     /* public  List<Film> getAllFilm(){
