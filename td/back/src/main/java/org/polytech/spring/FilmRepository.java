@@ -17,6 +17,10 @@ public interface FilmRepository extends JpaRepository<Film,Long>{
     )); */
     Film findById(long id);
 
+    List<Film> findAll();
+
+    
+
     List<Film> findByActeursId(Long acteurId);
 
     @Query("select f from Film f join f.acteurs a where a.id = :acteurId")
@@ -25,6 +29,6 @@ public interface FilmRepository extends JpaRepository<Film,Long>{
     @Query("select a from Acteur a join a.films f where f.id = :filmId")
     List<Acteur> findActeursByFilmId(@Param("filmId") Long filmId);
 
-    ResponseEntity<Void> addActeur(long id, long acteurId);
+    //ResponseEntity<Acteur> addActeur(long id, long acteurId);
 
 }

@@ -1,0 +1,38 @@
+### Liste des films
+GET http://localhost:8080/acteurs
+Accept: application/json
+
+### Acteur identifié par son identifiant
+GET http://localhost:8080/acteurs/1
+Accept: application/json
+
+### Création — réponse attendue : 201 Created avec en-tête Location
+POST http://localhost:8080/acteurs
+Content-Type: application/json
+
+{
+  "nom": "Julie Zilberberg"
+}
+
+### Création invalide — réponse attendue : 400 au format ProblemDetail
+POST http://localhost:8080/acteurs  
+Content-Type: application/json
+
+{
+    
+}
+
+### Mise à jour
+PUT http://localhost:8080/acteurs/1
+Content-Type: application/json
+
+{
+  "nom": "Julie Zilberberg"
+}
+
+### Suppression — réponse attendue : 204 No Content
+DELETE http://localhost:8080/acteurs/1
+
+### Identifiant inconnu — réponse attendue : 404 au format ProblemDetail
+GET http://localhost:8080/acteurs/9999
+Accept: application/json
