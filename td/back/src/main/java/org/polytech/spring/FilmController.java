@@ -19,27 +19,27 @@ public class FilmController {
     }
 
     @GetMapping("/films/{id}")
-    public List<FilmDto> findById(@PathVariable long id) {
+    public List<FilmDto> findById(@PathVariable("id") long id) {
         return service.findById(id);
     }
 
     @GetMapping("/films/{id}/acteurs")
-    public List<Acteur> findActeursById(@PathVariable long id) {
+    public List<Acteur> findActeursById(@PathVariable("id") long id) {
         return service.findActeursById(id);
     }
 
     @PostMapping("/films/{id}/acteurs/{acteurId}")
     public ResponseEntity<Void> addActeur(
-            @PathVariable long id,
-            @PathVariable long acteurId) {
+            @PathVariable("id") long id,
+            @PathVariable("acteurId") long acteurId) {
         //service.addActeur(id, acteurId);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/films/{id}/acteurs/{acteurId}")
     public ResponseEntity<Void> removeActeur(
-            @PathVariable long id,
-            @PathVariable long acteurId) {
+            @PathVariable("id") long id,
+            @PathVariable("acteurId") long acteurId) {
         //service.removeActeur(id, acteurId);
         return ResponseEntity.noContent().build();
     }

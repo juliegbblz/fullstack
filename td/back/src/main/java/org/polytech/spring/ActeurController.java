@@ -24,23 +24,23 @@ public class ActeurController {
     }
 
     @GetMapping("/acteurs/{id}")
-    public List<ActeurDto> findActeursById(@PathVariable long id) {
+    public List<ActeurDto> findActeursById(@PathVariable("id") long id) {
         return service.findById(id);
     }
 
-    @PostMapping("/acteurs") //creation
+    /* @PostMapping("/acteurs") //creation
     public ResponseEntity<Void> addActeur(
             @PathVariable long id,
             @PathVariable long acteurId) {
         //service.addActeur(id, acteurId);
         return ResponseEntity.noContent().build();
-    }
+    } */
 
-    @DeleteMapping("/films/{id}/acteurs/{acteurId}")
+    /* @DeleteMapping("/films/{id}/acteurs/{acteurId}")
     public ResponseEntity<Void> removeActeur(
             @PathVariable long id,
             @PathVariable long acteurId) {
         //service.removeActeur(id, acteurId);
         return ResponseEntity.noContent().build();
-    }
+    } */
 }
