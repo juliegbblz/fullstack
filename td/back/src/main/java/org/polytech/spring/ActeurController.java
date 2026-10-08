@@ -42,9 +42,9 @@ public class ActeurController {
     }
 
     @PutMapping("/acteurs/{id}") //modif
-    public ResponseEntity<ActeurDto> updateActeur(@PathVariable long id, @RequestBody ActeurDto body) {
+    public ActeurDto updateActeur(@PathVariable("id") long id, @RequestBody ActeurDto body) {
         service.updateActeur(id, body);
-        return ResponseEntity.noContent().build();
+        return service.findById(id);
     }
 
     /* @DeleteMapping("/films/{id}/acteurs/{acteurId}")

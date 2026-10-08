@@ -29,10 +29,11 @@ public class ActeurService {
         repository.save(acteur);
         return ActeurMapper.toDto(acteur);
     }
-    public void updateActeur(long id, ActeurDto body) {
+    public ActeurDto updateActeur(long id, ActeurDto body) {
         Acteur acteur = repository.findById(id);
         if (acteur == null) throw new ActeurNotFoundException();
         acteur.setNom(body.nom());
         repository.save(acteur);
+        return ActeurMapper.toDto(acteur);
     }
 }

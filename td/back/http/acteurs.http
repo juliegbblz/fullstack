@@ -19,7 +19,7 @@ POST http://localhost:8080/acteurs
 Content-Type: application/json
 
 {
-    
+
 }
 
 ### Mise à jour
@@ -27,7 +27,7 @@ PUT http://localhost:8080/acteurs/1
 Content-Type: application/json
 
 {
-  "nom": "Julie Zilberberg"
+  "nom": "Arthur Saltel"
 }
 
 ### Suppression — réponse attendue : 204 No Content
