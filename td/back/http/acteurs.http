@@ -1,4 +1,4 @@
-### Liste des films
+### Liste des acteurs
 GET http://localhost:8080/acteurs
 Accept: application/json
 

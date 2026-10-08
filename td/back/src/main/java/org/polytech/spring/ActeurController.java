@@ -47,11 +47,10 @@ public class ActeurController {
         return service.findById(id);
     }
 
-    /* @DeleteMapping("/films/{id}/acteurs/{acteurId}")
+    @DeleteMapping("/acteurs/{id}")
     public ResponseEntity<Void> removeActeur(
-            @PathVariable long id,
-            @PathVariable long acteurId) {
-        //service.removeActeur(id, acteurId);
+            @PathVariable("id") long id) {
+        service.removeActeur(id);
         return ResponseEntity.noContent().build();
-    } */
+    }
 }

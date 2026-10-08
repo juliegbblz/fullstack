@@ -20,6 +20,7 @@ public class ActeurService {
         if (acteur == null) throw new ActeurNotFoundException();
         return ActeurMapper.toDto(acteur);
     }
+
     public ActeurDto addActeur(ActeurCreationDto body) {
         Acteur acteur = new Acteur();
         if (body.nom() == null || body.nom().isBlank()) {
@@ -29,11 +30,18 @@ public class ActeurService {
         repository.save(acteur);
         return ActeurMapper.toDto(acteur);
     }
+
     public ActeurDto updateActeur(long id, ActeurDto body) {
         Acteur acteur = repository.findById(id);
         if (acteur == null) throw new ActeurNotFoundException();
         acteur.setNom(body.nom());
         repository.save(acteur);
         return ActeurMapper.toDto(acteur);
+    }
+
+    public void removeActeur(long id) {
+        Acteur acteur = repository.findById(id);
+        if (acteur == null) throw new ActeurNotFoundException();
+        repository.delete(acteur);
     }
 }
