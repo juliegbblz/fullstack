@@ -22,6 +22,9 @@ public class ActeurService {
     }
     public ActeurDto addActeur(ActeurCreationDto body) {
         Acteur acteur = new Acteur();
+        if (body.nom() == null || body.nom().isBlank()) {
+            throw new ActeurCreationException();
+        }
         acteur.setNom(body.nom());
         repository.save(acteur);
         return ActeurMapper.toDto(acteur);
