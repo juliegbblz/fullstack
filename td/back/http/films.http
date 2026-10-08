@@ -42,3 +42,6 @@ DELETE http://localhost:8080/films/1
 ### Identifiant inconnu — réponse attendue : 404 au format ProblemDetail
 GET http://localhost:8080/films/9999
 Accept: application/json
+
+### Ajouter un acteur à un film — réponse attendue : 204 No Content
+POST http://localhost:8080/films/1/acteurs/1

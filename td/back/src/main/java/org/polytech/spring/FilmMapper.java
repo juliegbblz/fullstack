@@ -1,5 +1,7 @@
 package org.polytech.spring;
 
+import java.util.stream.Collectors;
+
 public final class FilmMapper {
 
     public static FilmDto toDto(Film f){
@@ -8,8 +10,12 @@ public final class FilmMapper {
             f.getTitre(),
             f.getRealisateur(),
             f.getDateSortie(),
-            f.getGenre());
-    }
+            f.getGenre(),
+            f.getActeurs().stream()
+                .map(ActeurMapper::toDto)
+                .collect(Collectors.toSet())
+        );
+}
 
     public static Film toEntity (FilmCreationDto d){
         Film f = new Film();

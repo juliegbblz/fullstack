@@ -57,27 +57,31 @@ public class FilmService {
         repository.delete(film);
     }
 
+    @Transactional 
     public List<FilmDto> findAll(){
         return repository.findAll().stream().map(FilmMapper::toDto).toList();
     }
 
+    @Transactional 
     public FilmDto findById(long id){
         Film film = repository.findById(id);
         if (film == null) throw new FilmNotFoundException();
         return FilmMapper.toDto(film);
     }
-
+    
     public List<ActeurDto> findActeursByFilmId(long id){
         long searchId = ObjectUtils.isEmpty(id) ? 0 : id;
         return repository.findActeursByFilmId(searchId).stream().map(ActeurMapper::toDto).toList();
     }
 
-    // @Transactional
-    // public void addActeurInFilm(long id, long idActeur) {
-    //     Film film = repository.findById(id);
-    //     Acteur newActeur = acteurRepository.findById(idActeur);
-    //     film.getActeurs().add(newActeur);
-    // }
+    @Transactional
+    public void addActeurInFilm(long idFilm, long idActeur) {
+        Film film = repository.findById(idFilm);
+        Acteur acteur = acteurRepository.findById(idActeur);
+        if (film == null || acteur == null) throw new FilmNotFoundException();
+        film.getActeurs().add(acteur);
+        repository.save(film);
+    }
 
     /* public  List<Film> getAllFilm(){
         return repository.getAllFilm() ;

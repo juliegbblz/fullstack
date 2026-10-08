@@ -50,6 +50,8 @@ public class FilmController {
         return ResponseEntity.noContent().build();
     }
 
+    //TD2
+
     @GetMapping("/films/{id}")
     public FilmDto findById(@PathVariable("id") long id) {
         return service.findById(id);
@@ -60,14 +62,13 @@ public class FilmController {
         return service.findActeursByFilmId(id);
     }
 
-    /* @Transactional
     @PostMapping("/films/{id}/acteurs/{acteurId}")
     public ResponseEntity<Void> addActeurInFilm(
             @PathVariable("id") long id,
             @PathVariable("acteurId") long acteurId) {
         service.addActeurInFilm(id, acteurId);
         return ResponseEntity.noContent().build();
-    } */
+    }
 
     @DeleteMapping("/films/{id}/acteurs/{acteurId}")
     public ResponseEntity<Void> removeActeur(
