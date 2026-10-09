@@ -1,73 +1,97 @@
-# Développement Fullstack — Polytech
+# Gestion de Films et d'Acteurs - Application Full-Stack
 
-Dépôt de travail du cours. Il regroupe les TP du cours magistral et les TD à rendre.
+Cette application est un projet complet (Front-end et Back-end) permettant de gérer une base de données de films et d'acteurs. Elle offre des fonctionnalités CRUD complètes et permet de gérer le casting (association et dissociation entre films et acteurs).
 
-## Structure
+## 🛠 Technologies utilisées
 
-    tp/
-      back/     projet Gradle + Spring Boot préconfiguré : TP Java / Spring
-      front/    répertoire vide, destiné au projet créé par « ng new » : TP Angular
-    td/
-      back/     TD : API REST de la bibliothèque de films
-        http/   requêtes HTTP, exécutées avec l'extension VSCode REST Client
-      front/    TD : front Angular de la bibliothèque de films
+**Front-end (Angular) :**
 
-L'ouverture du dossier racine dans VSCode déclenche la proposition des extensions
-recommandées.
+* Architecture en composants Standalone
+* Gestion d'état réactive avec les **Signals** (`signal`, `computed`) et **`effect`**
+* Nouveau Control Flow Angular (`@if`, `@for`, `@empty`)
+* Formulaires template-driven (`[(ngModel)]`)
+* Appels HTTP centralisés dans des Services avec gestion des erreurs (`catchError`)
 
-## Récupération du dépôt
+**Back-end (Spring Boot) :**
 
+* API RESTful
+* Spring Data JPA / Hibernate
+* Base de données PostgreSQL
+* Initialisation automatique des données via `data.sql`
+
+---
+
+## ⚡ La réactivité avec `effect`
+
+L'application utilise massivement les nouvelles API réactives d'Angular, et notamment **`effect()`**.
+
+Un `effect` est une fonction qui s'exécute automatiquement à chaque fois qu'un ou plusieurs signaux qu'elle lit sont modifiés. Dans ce projet, `effect` joue un rôle central pour la synchronisation des données :
+
+* **Détection des routes :** Les paramètres de route (comme l'`id` d'un film ou d'un acteur) sont récupérés sous forme de signaux via `input()`.
+* **Appels HTTP réactifs :** L'`effect` "écoute" ces signaux d'identifiant. Dès que l'ID change (par exemple, passage d'un film à un autre), l'`effect` se redéclenche automatiquement, lance la requête HTTP correspondante (`service.getById()`), et met à jour les signaux contenant les données du film ou de l'acteur pour rafraîchir l'interface sans recharger la page.
+
+---
+
+## ⚙️ Prérequis
+
+* **Node.js** et **Angular CLI** installés pour le front-end.
+* **Java 17+** et **Maven/Gradle** pour le back-end.
+* **PostgreSQL** installé et démarré sur le port `5433`.
+
+---
+
+## 🚀 Installation et exécution
+
+### 1. Back-end (Spring Boot)
+
+1. Assurez-vous que votre base de données PostgreSQL est active avec la configuration suivante (modifiable dans `application.yml`) :
+* **URL :** `jdbc:postgresql://localhost:5433/film-db`
+* **Utilisateur :** `postgres`
+* **Mot de passe :** `16062004`
+
+
+2. Ouvrez le projet Spring Boot dans votre IDE (Eclipse, IntelliJ, VS Code).
+3. Lancez la classe principale (souvent `App.java` ou `Application.java`).
+4. Au démarrage, Hibernate créera automatiquement les tables et le fichier `src/main/resources/data.sql` insérera les données de test (films et acteurs). L'API sera accessible par défaut sur `http://localhost:8080`.
+
+### 2. Front-end (Angular)
+
+1. Ouvrez un terminal dans le dossier du projet Angular.
+2. Installez les dépendances :
 ```bash
-git clone polytech-fullstack-starter.bundle mon-depot
-cd mon-depot
-git remote remove origin                 # le bundle ne constitue pas un dépôt distant
-git remote add origin <URL du dépôt GitHub>
-git push -u origin main
+npm install
+
 ```
 
-## Démarrage
 
-### Back des TP
-
+3. Démarrez le serveur de développement :
 ```bash
-cd tp/back
-./gradlew build      # Windows : gradlew.bat build
-./gradlew bootRun
+ng serve
+
 ```
 
-Le wrapper télécharge Gradle 9.7.1 et, le cas échéant, le JDK 26 : aucune installation
-manuelle n'est nécessaire. Le fichier `build.gradle` ne déclare qu'une dépendance,
-`spring-boot-starter-webmvc`. Elle apporte Spring MVC, Jackson, un Tomcat embarqué ainsi
-que `spring-context`, le conteneur IoC utilisé dans les premiers TP.
 
-### Front des TP
+4. Ouvrez votre navigateur sur `http://localhost:4200`.
 
-```bash
-cd tp/front
-ng new tp-front      # CSS, sans SSR, « None » pour les outils IA
-```
+*(Note : Assurez-vous que le proxy Angular `proxy.conf.json` est bien configuré pour rediriger les appels `/api/*` vers `http://localhost:8080` afin d'éviter les erreurs CORS).*
 
-### TD
+---
 
-Le back est généré depuis [start.spring.io](https://start.spring.io) ou depuis l'IDE,
-**dans `td/back`**, avec la dépendance Spring Web. Le front est généré avec `ng new`,
-**dans `td/front`**.
+## ✨ Fonctionnalités principales
 
-## Requêtes HTTP
+### Côté Films
 
-Ni collection Postman ni collection Bruno : les requêtes sont versionnées dans des fichiers
-`.http` placés dans `td/back/http` et exécutées par l'extension VSCode
-[REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client),
-via l'action *Send Request* affichée au-dessus de chaque requête. Un fichier par ressource,
-requêtes séparées par `###`. `films.http` contient le squelette du TD 1.
+* **Lister les films :** Affichage sous forme de cartes avec mise en évidence conditionnelle des films sortis avant l'an 2000.
+* **Consulter un film :** Affichage des détails du film, formatage de la date en français avec `DatePipe`, et affichage du casting.
+* **Créer/Modifier un film :** Formulaire réactif pour ajouter ou mettre à jour un film.
+* **Supprimer un film :** Bouton de suppression directement accessible depuis les cartes ou les détails.
 
-## Rendus
+### Côté Acteurs
 
-| Tag   | Contenu                                        |
-|-------|------------------------------------------------|
-| `td1` | API REST, stockage en mémoire                  |
-| `td2` | persistance JPA, DTO, CORS                     |
-| `td3` | front Angular branché sur l'API                |
+* **Lister les acteurs :** Vue d'ensemble de la base d'acteurs.
+* **Consulter un acteur :** Affichage de la page de profil de l'acteur et de sa filmographie complète en réutilisant le composant `FilmCard`.
 
-La régularité et la lisibilité des commits ainsi que la mise à jour du `README.md` sont
-prises en compte dans l'évaluation.
+### Casting (Associations)
+
+* **Associer :** Possibilité d'ajouter un acteur existant à un film via une liste déroulante sur la page de détail ou d'édition d'un film.
+* **Dissocier :** Possibilité de retirer un acteur du casting d'un film.
