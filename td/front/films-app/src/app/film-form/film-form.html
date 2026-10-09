@@ -1,1 +1,96 @@
-<p>film-form works!</p>
+<div style="max-width: 600px; margin: 20px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px;">
+  
+  <h2>{{ isEditMode() ? 'Modifier le film' : 'Créer un nouveau film' }}</h2>
+
+  @if (erreur()) {
+    <p style="color: crimson; background-color: #ffe6e6; padding: 10px;">{{ erreur() }}</p>
+  }
+
+  <form (submit)="$event.preventDefault(); onSubmit()">
+    
+    <div style="margin-bottom: 15px;">
+      <label for="titre"><strong>Titre :</strong></label><br>
+      <input 
+        type="text" 
+        id="titre" 
+        [ngModel]="titre()" 
+        (ngModelChange)="titre.set($event)" 
+        name="titre" 
+        required 
+        style="width: 100%; padding: 8px; margin-top: 5px;">
+    </div>
+
+    <div style="margin-bottom: 15px;">
+      <label for="realisateur"><strong>Réalisateur :</strong></label><br>
+      <input 
+        type="text" 
+        id="realisateur" 
+        [ngModel]="realisateur()" 
+        (ngModelChange)="realisateur.set($event)" 
+        name="realisateur" 
+        required 
+        style="width: 100%; padding: 8px; margin-top: 5px;">
+    </div>
+
+    <div style="margin-bottom: 15px;">
+      <label for="genre"><strong>Genre :</strong></label><br>
+      <input 
+        type="text" 
+        id="genre" 
+        [ngModel]="genre()" 
+        (ngModelChange)="genre.set($event)" 
+        name="genre" 
+        style="width: 100%; padding: 8px; margin-top: 5px;">
+    </div>
+
+    <div style="margin-bottom: 15px;">
+      <label for="dateSortie"><strong>Date de sortie :</strong></label><br>
+      <input 
+        type="date" 
+        id="dateSortie" 
+        [ngModel]="dateSortie()" 
+        (ngModelChange)="dateSortie.set($event)" 
+        name="dateSortie" 
+        style="width: 100%; padding: 8px; margin-top: 5px;">
+    </div>
+
+    <div style="display: flex; gap: 10px;">
+      <button type="submit" style="padding: 10px 15px; background-color: #007bff; color: white; border: none; cursor: pointer;">
+        {{ isEditMode() ? 'Enregistrer les modifications' : 'Créer le film' }}
+      </button>
+      <button type="button" routerLink="/films" style="padding: 10px 15px; background-color: #6c757d; color: white; border: none; cursor: pointer;">
+        Annuler
+      </button>
+    </div>
+  </form>
+
+  @if (isEditMode()) {
+    <hr style="margin: 30px 0;">
+    <h3>Gestion du Casting</h3>
+
+    <h4>Acteurs actuels dans le film :</h4>
+    <ul>
+      @for (acteur of acteursDuFilm(); track acteur.id) {
+        <li>
+          {{ acteur.nom }} 
+          <button (click)="dissocier(acteur.id)" style="color: red; margin-left: 10px;">Retirer</button>
+        </li>
+      } @empty {
+        <li>Aucun acteur associé à ce film pour l'instant.</li>
+      }
+    </ul>
+
+    <h4>Ajouter un acteur existant :</h4>
+    <ul>
+      @for (acteur of tousLesActeurs(); track acteur.id) {
+        <li>
+          {{ acteur.nom }} 
+          <button (click)="associer(acteur.id)" style="color: green; margin-left: 10px;">Associer</button>
+        </li>
+      } @empty {
+        <li>Aucun acteur disponible.</li>
+      }
+    </ul>
+  }
+
+</div>

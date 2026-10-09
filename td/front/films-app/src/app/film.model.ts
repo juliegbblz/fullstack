@@ -5,6 +5,6 @@ genre: any;
 id: number;
 titre: string;
 realisateur: string;
-dateSortie: Date;
+dateSortie: string;
 acteurs?: Acteur[];
 }
