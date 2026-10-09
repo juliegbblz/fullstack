@@ -11,10 +11,14 @@ import { RouterLink } from '@angular/router';
 export class FilmCard {
   
   film = input.required<Film>(); 
-  
+
   supprimer = output<Film>();
 
   onSupprimer() {
     this.supprimer.emit(this.film());
+  }
+
+  estAncien(f: Film): boolean {
+    return new Date(f.dateSortie).getFullYear() < 2000;
   }
 }

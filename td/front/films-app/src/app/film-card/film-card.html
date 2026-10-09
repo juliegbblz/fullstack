@@ -1,8 +1,10 @@
-<div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+<div [class.ancien]="estAncien(film())" style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
   <h3>{{ film().titre }}</h3>
   <p><strong>Réalisateur :</strong> {{ film().realisateur }}</p>
+  <p><strong>Genre :</strong> {{ film().genre }}</p>
+
+  <p><strong>Sortie :</strong> {{ film().dateSortie }}</p>
   
   <button [routerLink]="['/films', film().id]">Détails</button>
-  
   <button (click)="onSupprimer()">Supprimer</button>
 </div>
