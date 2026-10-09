@@ -48,7 +48,7 @@ GET http://localhost:8080/films/1/acteurs
 Accept: application/json
 
 ### Ajouter un acteur à un film — réponse attendue : 204 No Content
-POST http://localhost:8080/films/1/acteurs/1
+POST http://localhost:8080/films/2/acteurs/1
 
 ### Suppression — réponse attendue : 204 No Content
 DELETE http://localhost:8080/films/1/acteurs/1
