@@ -1,1 +1,14 @@
-<p>acteur-list works!</p>
+<h2>Liste des acteurs</h2>
+
+@if (acteurs$ | async; as acteurs) {
+  <div style="display: flex; flex-direction: column; gap: 10px;">
+    @for (acteur of acteurs; track acteur.id) {
+      <div style="border: 1px solid #ccc; padding: 10px;">
+        <h3>{{ acteur.nom }}</h3>
+        <button [routerLink]="['/acteurs', acteur.id]">Voir sa filmographie</button>
+      </div>
+    } @empty {
+      <p>Aucun acteur enregistré.</p>
+    }
+  </div>
+}
