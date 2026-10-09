@@ -1,1 +1,27 @@
-<p>film-detail works!</p>
+
+@if (erreur()) {
+  <p style="color: crimson;">{{ erreur() }}</p>
+}
+
+@if (film(); as f) {
+  <div style="border: 1px solid #ccc; padding: 20px;">
+    <h2>{{ f.titre }}</h2>
+    <p><strong>Réalisateur :</strong> {{ f.realisateur }}</p>
+    <p><strong>Genre :</strong> {{ f.genre }}</p>
+    <p><strong>Date de sortie :</strong> {{ f.dateSortie | date:'dd/MM/yyyy' }}</p>
+
+    <h3>Casting</h3>
+    <ul>
+      @for (acteur of f.acteurs; track acteur.id) {
+        <li>
+          <a [routerLink]="['/acteurs', acteur.id]">{{ acteur.nom }}</a>
+        </li>
+      } @empty {
+        <li>Aucun acteur enregistré pour ce film.</li>
+      }
+    </ul>
+
+    <br>
+    <button routerLink="/films">Retour à la liste</button>
+  </div>
+}
