@@ -1,1 +1,24 @@
-<p>acteur-detail works!</p>
+@if (erreur()) {
+  <p style="color: crimson;">{{ erreur() }}</p>
+}
+
+<div style="border: 1px solid #ccc; padding: 20px;">
+  <!-- On affiche le nom récupéré -->
+  <h2>{{ acteurNom() }}</h2>
+  
+  <hr>
+  <h3>Filmographie</h3>
+  
+  <div style="display: flex; flex-direction: column; gap: 10px;">
+    <!-- On boucle directement sur le signal films() -->
+    @for (film of films(); track film.id) {
+      <app-film-card 
+        [film]="film" />
+    } @empty {
+      <p>Cet acteur n'est associé à aucun film pour le moment.</p>
+    }
+  </div>
+
+  <br>
+  <button routerLink="/acteurs">Retour à la liste des acteurs</button>
+</div>
