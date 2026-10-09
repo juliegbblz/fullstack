@@ -1,9 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, input, output } from '@angular/core';
+import { Film } from '../film.model';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  imports: [],
   selector: 'app-film-card',
-  styleUrl: './film-card.css',
+  imports: [RouterLink],
   templateUrl: './film-card.html',
+  styleUrl: './film-card.css'
 })
-export class FilmCard {}
+export class FilmCard {
+  
+  film = input.required<Film>(); 
+  
+  supprimer = output<Film>();
+
+  onSupprimer() {
+    this.supprimer.emit(this.film());
+  }
+}

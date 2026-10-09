@@ -1,1 +1,13 @@
-<p>film-list works!</p>
+<h2>Liste des films</h2>
+
+@if (films$ | async; as films) {
+  @for (f of films; track f.id) {
+    
+    <app-film-card 
+      [film]="f" 
+      (supprimer)="onSupprimer($event)" />
+      
+  } @empty {
+    <p>Aucun film enregistré.</p>
+  }
+}

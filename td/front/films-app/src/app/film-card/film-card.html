@@ -1,1 +1,8 @@
-<p>film-card works!</p>
+<div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+  <h3>{{ film().titre }}</h3>
+  <p><strong>Réalisateur :</strong> {{ film().realisateur }}</p>
+  
+  <button [routerLink]="['/films', film().id]">Détails</button>
+  
+  <button (click)="onSupprimer()">Supprimer</button>
+</div>
