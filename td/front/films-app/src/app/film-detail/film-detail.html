@@ -1,4 +1,3 @@
-
 @if (erreur()) {
   <p style="color: crimson;">{{ erreur() }}</p>
 }
@@ -10,16 +9,31 @@
     <p><strong>Genre :</strong> {{ f.genre }}</p>
     <p><strong>Date de sortie :</strong> {{ f.dateSortie | date:'dd/MM/yyyy' }}</p>
 
-    <h3>Casting</h3>
+    <hr>
+    <h3>Casting actuel</h3>
     <ul>
       @for (acteur of f.acteurs; track acteur.id) {
         <li>
-          <a [routerLink]="['/acteurs', acteur.id]">{{ acteur.nom }}</a>
+          {{ acteur.nom }} 
+          <button (click)="dissocier(acteur.id)" style="color: red; margin-left: 10px;">Retirer</button>
         </li>
       } @empty {
         <li>Aucun acteur enregistré pour ce film.</li>
       }
     </ul>
+
+    <hr>
+    <h3>Ajouter un acteur</h3>
+    <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 20px;">
+      <select [ngModel]="acteurSelectionne()" (ngModelChange)="acteurSelectionne.set($event)">
+        <option [ngValue]="null">-- Choisir un acteur --</option>
+        @for (a of tousLesActeurs(); track a.id) {
+          <option [ngValue]="a.id">{{ a.nom }}</option>
+        }
+      </select>
+      
+      <button (click)="associer()">Associer</button>
+    </div>
 
     <br>
     <button routerLink="/films">Retour à la liste</button>

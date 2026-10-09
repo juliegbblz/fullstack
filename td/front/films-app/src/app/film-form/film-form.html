@@ -64,33 +64,4 @@
     </div>
   </form>
 
-  @if (isEditMode()) {
-    <hr style="margin: 30px 0;">
-    <h3>Gestion du Casting</h3>
-
-    <h4>Acteurs actuels dans le film :</h4>
-    <ul>
-      @for (acteur of acteursDuFilm(); track acteur.id) {
-        <li>
-          {{ acteur.nom }} 
-          <button (click)="dissocier(acteur.id)" style="color: red; margin-left: 10px;">Retirer</button>
-        </li>
-      } @empty {
-        <li>Aucun acteur associé à ce film pour l'instant.</li>
-      }
-    </ul>
-
-    <h4>Ajouter un acteur existant :</h4>
-    <ul>
-      @for (acteur of tousLesActeurs(); track acteur.id) {
-        <li>
-          {{ acteur.nom }} 
-          <button (click)="associer(acteur.id)" style="color: green; margin-left: 10px;">Associer</button>
-        </li>
-      } @empty {
-        <li>Aucun acteur disponible.</li>
-      }
-    </ul>
-  }
-
 </div>

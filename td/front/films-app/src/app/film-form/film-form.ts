@@ -77,30 +77,4 @@ export class FilmForm {
       });
     }
   }
-
-  associer(acteurId: number) {
-    const filmId = Number(this.id());
-    if (!filmId) return;
-
-    this.filmService.associerActeur(filmId, acteurId).subscribe({
-      next: () => {
-        this.filmService.getById(filmId).subscribe(f => {
-          if (f.acteurs) this.acteursDuFilm.set(f.acteurs);
-        });
-      },
-      error: () => this.erreur.set("Erreur lors de l'association de l'acteur.")
-    });
-  }
-
-  dissocier(acteurId: number) {
-    const filmId = Number(this.id());
-    if (!filmId) return;
-
-    this.filmService.dissocierActeur(filmId, acteurId).subscribe({
-      next: () => {
-        this.acteursDuFilm.update(acteurs => acteurs.filter(a => a.id !== acteurId));
-      },
-      error: () => this.erreur.set("Erreur lors de la dissociation de l'acteur.")
-    });
-  }
 }
